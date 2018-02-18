@@ -28,3 +28,18 @@ function(message_distro color redhatMessage otherMessage)
 		message_color(${color} ${otherMessage})
 	endif (${DISTRO} STREQUAL "FEDORA")
 endfunction(message_distro)
+
+message(CMAKE_CXX_COMPILER_ID)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang")
+    set(CMAKE_COMPILER_IS_CLANGXX 1)
+    set(DREAMOVERFLOW_DBG_OPTS "-glldb -D_DEBUG")
+endif ()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+	set(DREAMOVERFLOW_DBG_OPTS "-ggdb -D_DEBUG")
+endif ()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	set(DREAMOVERFLOW_DBG_OPTS "/Zi /D_DEBUG")
+endif ()
